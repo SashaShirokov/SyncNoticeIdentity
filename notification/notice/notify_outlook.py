@@ -3,29 +3,22 @@ import smtplib
 from email.message import EmailMessage
 
 from config import (
-    GMAIL_EMAIL_ADDRESS,
-    GMAIL_EMAIL_PASSWORD,
-    GMAIL_SERVER,
-    GMAIL_PORT,
     OUTLOOK_EMAIL_ADDRESS,
     OUTLOOK_EMAIL_PASSWORD,
     OUTLOOK_SERVER,
     OUTLOOK_PORT,
     PASS,
     ALERT,
-    PATH_TO_APP,
+    PATH_TO_APP_LOCAL,
+    PATH_TO_APP_DOCKER
 )
 
 
 CONTACTS = [OUTLOOK_EMAIL_ADDRESS]
 
 
-def notify_team():
+def notify_team_outlook():
     with smtplib.SMTP(OUTLOOK_SERVER, OUTLOOK_PORT) as smtp:
-        smtp.ehlo()
-        smtp.starttls()
-        smtp.ehlo()
-        # smtp.login(OUTLOOK_EMAIL_ADDRESS, OUTLOOK_EMAIL_PASSWORD)
         message = _build_message()
         smtp.send_message(message)
 
@@ -49,8 +42,10 @@ def _build_message() -> EmailMessage:
 
 
 def _is_vulnerable() -> bool:
-    with open(Path(PATH_TO_APP) / "scan.txt") as file:
+    with open(Path(PATH_TO_APP_DOCKER) / "scan.txt") as file:
         lines = len(file.readlines())
+    # with open(Path(PATH_TO_APP_LOCAL) / "scan.txt") as file:
+    #     lines = len(file.readlines())
     return True if lines > 1 else False
 
 
@@ -67,9 +62,12 @@ def _get_message_html(color: str, message: str) -> str:
 
 
 def _get_attachment() -> tuple:
-    with open(Path(PATH_TO_APP) / "scan.txt") as file:
+    with open(Path(PATH_TO_APP_DOCKER) / "scan.txt") as file:
         file_data = file.read()
         file_name = file.name
+    # with open(Path(PATH_TO_APP_LOCAL) / "scan.txt") as file:
+    #     file_data = file.read()
+    #     file_name = file.name
     return file_data, file_name
 
 

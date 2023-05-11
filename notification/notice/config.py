@@ -9,18 +9,15 @@ OUTLOOK_SERVER = "smtp.godeltech.com"
 OUTLOOK_PORT = 25
 
 
-# Host: smtp.godeltech.com
-# port: 25
-
-
 PASS = {
     "color": "green",
-    "message": "Your dependencies do not have any vulnerability!",
+    "message": "GREEN NOTICE! Your dependencies do not have any vulnerability!",
 }
 
 ALERT = {
     "color": "red",
-    "message": "ALERT!!! Check out the attached file to see vulnerability(s) you have.",
+    "message": "RED NOTICE!!! Check out the attached file to see vulnerability(s) you have.",
 }
 
-PATH_TO_APP = "/home/ashyrokau/Desktop/SyncIdentity"
+PATH_TO_APP_LOCAL = "/home/ashyrokau/Desktop/SyncIdentity"
+PATH_TO_APP_DOCKER = "/SyncIdentity"

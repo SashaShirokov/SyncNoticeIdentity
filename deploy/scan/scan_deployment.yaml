@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scanidentity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: scanidentity
+  template:
+    metadata:
+      labels:
+        app: scanidentity
+    spec:
+      containers:
+      - name: scanidentity-container
+        image: levigoldman/scanidentity
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8086
+          protocol: TCP

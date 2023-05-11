@@ -14,7 +14,12 @@ COPY ./config /root/.ssh/config
 
 RUN touch /var/log/cron.log
 
-RUN (crontab -l ; echo "*/30 * * * * cd /SyncIdentity/identity-server-poc && git pull >> /var/log/cron.log && git push --porcelain >> /var/log/cron.log && echo '' >> /var/log/cron.log") | crontab
+#RUN (crontab -l ; echo "*/30 * * * * cd /SyncIdentity/identity-server-poc && git pull >> /var/log/cron.log && git push --porcelain >> /var/log/cron.log && echo '' >> /var/log/cron.log") | crontab
+
+#RUN (crontab -l ; echo "*/1 * * * * cd /SyncIdentity/notification/notice && python main.py >> /var/log/cron.log") | crontab
+
+RUN (crontab -l ; echo "*/1 * * * * echo 'Hello' >> /var/log/cron.log && cd /SyncIdentity/notification/notice && /usr/local/bin/python3.10 main.py >> /var/log/cron.log") | crontab
+
 
 RUN chmod 600 /root/.ssh/id_ed25519 && \
     ssh-keyscan -t ed25519 -H github.com >> /root/.ssh/known_hosts && \
