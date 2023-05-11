@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: syncidentity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: syncidentity
+  template:
+    metadata:
+      labels:
+        app: syncidentity
+    spec:
+      containers:
+      - name: syncidentity-container
+        image: levigoldman/syncidentity
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8085
+          protocol: TCP
