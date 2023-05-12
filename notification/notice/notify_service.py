@@ -4,31 +4,36 @@ from email.message import EmailMessage
 
 from config import (
     GMAIL_EMAIL_ADDRESS,
-    GMAIL_EMAIL_PASSWORD,
-    GMAIL_SERVER,
-    GMAIL_PORT,
     PASS,
     ALERT,
     PATH_TO_APP_LOCAL,
-    PATH_TO_APP_DOCKER
+    PATH_TO_APP_DOCKER,
 )
 
 
 CONTACTS = [GMAIL_EMAIL_ADDRESS, "levigoldman613@gmail.com"]
 
 
-def notify_team_gmail():
-    with smtplib.SMTP_SSL(GMAIL_SERVER, GMAIL_PORT) as smtp:
-        smtp.login(GMAIL_EMAIL_ADDRESS, GMAIL_EMAIL_PASSWORD)
-        message = _build_message()
-        smtp.send_message(message)
+def notify_team(email_system):
+    if email_system.name == "GMAIL":
+        with smtplib.SMTP_SSL(email_system.server, email_system.port) as smtp:
+            smtp.login(email_system.address, email_system.password)
+            message = _build_message(email_system.address)
+            smtp.send_message(message)
+
+    if email_system.name == "OUTLOOK":
+        with smtplib.SMTP(email_system.server, email_system.port) as smtp:
+            message = _build_message(email_system.address)
+            smtp.send_message(message)
 
 
-def _build_message() -> EmailMessage:
+def _build_message(sender_address) -> EmailMessage:
+    file_data, file_name, file_datetime = _get_attachment()
     message = EmailMessage()
-    message["From"] = GMAIL_EMAIL_ADDRESS
+    message["From"] = sender_address
     message["To"] = CONTACTS
-    message["Subject"] = "Scan Notification"
+    message["Subject"] = f"Scanned {file_datetime}"
+
     vulnerable = _is_vulnerable()
     if vulnerable:
         message_html = _get_message_html(color=ALERT["color"], message=ALERT["message"])
@@ -37,7 +42,6 @@ def _build_message() -> EmailMessage:
     message.add_alternative(message_html, subtype="html")
 
     # attaching the output of osv-scanner
-    file_data, file_name = _get_attachment()
     message.add_attachment(file_data, filename=file_name)
     return message
 
@@ -61,6 +65,8 @@ def _get_message_html(color: str, message: str) -> str:
         """
     return message_html
 
+import os
+import datetime
 
 def _get_attachment() -> tuple:
     # with open(Path(PATH_TO_APP_DOCKER) / "scan.txt") as file:
@@ -69,8 +75,6 @@ def _get_attachment() -> tuple:
     with open(Path(PATH_TO_APP_LOCAL) / "scan.txt") as file:
         file_data = file.read()
         file_name = file.name
-    return file_data, file_name
-
-
-if __name__ == "__main__":
-    notify_team()
+        unix_time = os.path.getmtime(Path(PATH_TO_APP_LOCAL) / "scan.txt")
+        file_datetime = datetime.datetime.utcfromtimestamp(unix_time).strftime('%Y-%m-%d')
+    return file_data, file_name, file_datetime

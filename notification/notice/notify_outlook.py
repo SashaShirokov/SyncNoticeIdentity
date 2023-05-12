@@ -10,7 +10,7 @@ from config import (
     PASS,
     ALERT,
     PATH_TO_APP_LOCAL,
-    PATH_TO_APP_DOCKER
+    PATH_TO_APP_DOCKER,
 )
 
 
