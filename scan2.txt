@@ -1,2 +1,0 @@
-Scanning dir notification/poetry.lock
-Scanned /home/ashyrokau/Desktop/SyncIdentity/notification/poetry.lock file and found 6 packages

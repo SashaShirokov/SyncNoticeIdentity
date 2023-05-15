@@ -65,6 +65,6 @@ def _get_attachment() -> tuple:
         file_name = file.name
         unix_time = os.path.getmtime(Path(PATH_TO_APP_DOCKER) / "scan.txt")
         file_datetime = datetime.datetime.utcfromtimestamp(unix_time).strftime(
-            "%Y-%m-%d"
+            "%Y-%m-%d %H:%M:%S"
         )
     return file_data, file_name, file_datetime
