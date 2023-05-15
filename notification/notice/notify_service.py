@@ -1,17 +1,19 @@
-from pathlib import Path
+import os
+import datetime
 import smtplib
-from email.message import EmailMessage
+from pathlib import Path
 
+from email.message import EmailMessage
 from config import (
     GMAIL_EMAIL_ADDRESS,
     PASS,
     ALERT,
-    PATH_TO_APP_LOCAL,
     PATH_TO_APP_DOCKER,
+    CONTACTS
 )
 
 
-CONTACTS = [GMAIL_EMAIL_ADDRESS, "levigoldman613@gmail.com"]
+# CONTACTS = [GMAIL_EMAIL_ADDRESS]
 
 
 def notify_team(email_system):
@@ -47,9 +49,7 @@ def _build_message(sender_address) -> EmailMessage:
 
 
 def _is_vulnerable() -> bool:
-    # with open(Path(PATH_TO_APP_DOCKER) / "scan.txt") as file:
-    #     lines = len(file.readlines())
-    with open(Path(PATH_TO_APP_LOCAL) / "scan.txt") as file:
+    with open(Path(PATH_TO_APP_DOCKER) / "scan.txt") as file:
         lines = len(file.readlines())
     return True if lines > 1 else False
 
@@ -59,22 +59,21 @@ def _get_message_html(color: str, message: str) -> str:
         <!DOCTYPE html>
         <html>
             <body>
-                <h1 style="color:{color};">{message}</h1>
+                <h1>Hello!</h1>
+                <h2 style="color:{color};">{message}</h2>
+                <p> Scan was fulfilled by osv-scanner.</p>
             </body>
         </html>
         """
     return message_html
 
-import os
-import datetime
 
 def _get_attachment() -> tuple:
-    # with open(Path(PATH_TO_APP_DOCKER) / "scan.txt") as file:
-    #     file_data = file.read()
-    #     file_name = file.name
-    with open(Path(PATH_TO_APP_LOCAL) / "scan.txt") as file:
+    with open(Path(PATH_TO_APP_DOCKER) / "scan.txt") as file:
         file_data = file.read()
         file_name = file.name
-        unix_time = os.path.getmtime(Path(PATH_TO_APP_LOCAL) / "scan.txt")
-        file_datetime = datetime.datetime.utcfromtimestamp(unix_time).strftime('%Y-%m-%d')
+        unix_time = os.path.getmtime(Path(PATH_TO_APP_DOCKER) / "scan.txt")
+        file_datetime = datetime.datetime.utcfromtimestamp(unix_time).strftime(
+            "%Y-%m-%d"
+        )
     return file_data, file_name, file_datetime

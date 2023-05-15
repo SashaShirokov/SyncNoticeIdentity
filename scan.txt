@@ -1,8 +1,0 @@
-Scanned /home/ashyrokau/Desktop/SyncIdentity/identity-server-poc/poetry.lock file and found 111 packages
-+-------------------------------------+-----------+-----------+---------+---------------------------------+
-| OSV URL (ID IN BOLD)                | ECOSYSTEM | PACKAGE   | VERSION | SOURCE                          |
-+-------------------------------------+-----------+-----------+---------+---------------------------------+
-| https://osv.dev/GHSA-3qj8-93xh-pwh2 | PyPI      | starlette | 0.21.0  | identity-server-poc/poetry.lock |
-| https://osv.dev/GHSA-74m5-2c7w-9w3x |           |           |         |                                 |
-| https://osv.dev/PYSEC-2023-48       |           |           |         |                                 |
-+-------------------------------------+-----------+-----------+---------+---------------------------------+
