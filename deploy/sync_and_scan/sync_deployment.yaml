@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sync_scan_identity
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sync_scan_identity
+  template:
+    metadata:
+      labels:
+        app: sync_scan_identity
+    spec:
+      containers:
+      - name: sync_scan_identity-container
+        image: levigoldman/sync_scan_identity
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8087
+          protocol: TCP

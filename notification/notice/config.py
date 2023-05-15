@@ -21,14 +21,13 @@ ALERT = {
 
 PATH_TO_APP_DOCKER = "/SyncIdentity"
 
-CONTACTS = [
+OUTLOOK_CONTACTS = [
     "m.perkovskiy@godeltech.com",
     "d.krats@godeltech.com",
     "k.gajda@godeltech.com",
     "m.latysh@godeltech.com",
     "p.kuzma@godeltech.com",
     "v.taustyka@godeltech.com",
-    "s.paddubnaya@godeltech.com",
     "yahor.statkevich@godeltech.com",
     "a.shyrokau@godeltech.com",
 ]

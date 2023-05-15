@@ -2,18 +2,9 @@ import os
 import datetime
 import smtplib
 from pathlib import Path
-
 from email.message import EmailMessage
-from config import (
-    GMAIL_EMAIL_ADDRESS,
-    PASS,
-    ALERT,
-    PATH_TO_APP_DOCKER,
-    CONTACTS
-)
 
-
-# CONTACTS = [GMAIL_EMAIL_ADDRESS]
+from config import OUTLOOK_CONTACTS, PATH_TO_APP_DOCKER, PASS, ALERT
 
 
 def notify_team(email_system):
@@ -33,7 +24,7 @@ def _build_message(sender_address) -> EmailMessage:
     file_data, file_name, file_datetime = _get_attachment()
     message = EmailMessage()
     message["From"] = sender_address
-    message["To"] = CONTACTS
+    message["To"] = OUTLOOK_CONTACTS
     message["Subject"] = f"Scanned {file_datetime}"
 
     vulnerable = _is_vulnerable()

@@ -20,7 +20,7 @@ RUN touch /var/log/cron.log
 RUN (crontab -l ; echo "*/30 * * * * cd /SyncIdentity/identity-server-poc && git pull >> /var/log/cron.log && git push --porcelain >> /var/log/cron.log && echo '' >> /var/log/cron.log") | crontab
 
 # Delete cron.log every Friday at 5pm
-RUN (crontab -l ; echo "0 5 * * 5 rm -rf /var/log/cron.log") | crontab
+# RUN (crontab -l ; echo "0 5 * * 5 rm -rf /var/log/cron.log") | crontab
 
 # Scan identity projec at 10:00 on every day-of-week from Monday through Friday
 RUN (crontab -l ; echo "0 10 * * * 1-5 cd /SyncIdentity && ./osv-scanner_1.3.2_linux_amd64 --lockfile ./identity-server-poc/poetry.lock > /SyncIdentity/scan.txt") | crontab
