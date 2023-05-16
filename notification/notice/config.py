@@ -3,7 +3,7 @@ GMAIL_EMAIL_PASSWORD = "tjpzprtpfwccgtkt"
 GMAIL_SERVER = "smtp.gmail.com"
 GMAIL_PORT = 465
 
-OUTLOOK_EMAIL_ADDRESS = "a.shyrokau@godeltech.com"
+OUTLOOK_EMAIL_ADDRESS = "m.perkovskiy@godeltech.com"
 OUTLOOK_EMAIL_PASSWORD = ""
 OUTLOOK_SERVER = "smtp.godeltech.com"
 OUTLOOK_PORT = 25

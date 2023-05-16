@@ -5,7 +5,7 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-    - port: 8087
-      targetPort: 8087
+    - port: 8088
+      targetPort: 8088
   selector:
     app: sync-scan-identity

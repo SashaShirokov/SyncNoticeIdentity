@@ -15,7 +15,7 @@ spec:
       containers:
       - name: sync-scan-identity-container
         image: levigoldman/sync-scan-identity
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
-        - containerPort: 8087
+        - containerPort: 8088
           protocol: TCP

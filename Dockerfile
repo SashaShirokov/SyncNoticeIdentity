@@ -23,10 +23,10 @@ RUN (crontab -l ; echo "*/30 * * * * cd /SyncIdentity/identity-server-poc && git
 # RUN (crontab -l ; echo "0 5 * * 5 rm -rf /var/log/cron.log") | crontab
 
 # Scan identity projec at 10:00 on every day-of-week from Monday through Friday
-RUN (crontab -l ; echo "0 10 * * 1-5 cd /SyncIdentity && ./osv-scanner_1.3.2_linux_amd64 --lockfile ./identity-server-poc/poetry.lock > /SyncIdentity/scan.txt") | crontab
+RUN (crontab -l ; echo "0 8 * * 1-5 cd /SyncIdentity && ./osv-scanner_1.3.2_linux_amd64 --lockfile ./identity-server-poc/poetry.lock > /SyncIdentity/scan.txt") | crontab
 
 # Notify team at 10:05 on every day-of-week from Monday through Friday about scan result
-RUN (crontab -l ; echo "5 10 * * 1-5 cd /SyncIdentity/notification/notice && /usr/local/bin/python3.10 main.py") | crontab
+RUN (crontab -l ; echo "5 8 * * 1-5 cd /SyncIdentity/notification/notice && /usr/local/bin/python3.10 main.py") | crontab
 
 
 RUN chmod 600 /root/.ssh/id_ed25519 && \
