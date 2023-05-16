@@ -11,7 +11,7 @@ OUTLOOK_PORT = 25
 
 PASS = {
     "color": "green",
-    "message": "Your dependencies do not have any vulnerability!",
+    "message": "Your dependencies of GodelTech/auth-service do not have any vulnerability!",
 }
 
 ALERT = {
