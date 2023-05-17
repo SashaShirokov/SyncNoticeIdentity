@@ -40,7 +40,7 @@ def _build_message(sender_address) -> EmailMessage:
 
 
 def _is_vulnerable() -> bool:
-    with open(Path(PATH_TO_APP_DOCKER) / "scan.txt") as file:
+    with open(Path(PATH_TO_APP_DOCKER) / "scan_output.txt") as file:
         lines = len(file.readlines())
     return True if lines > 1 else False
 
@@ -60,10 +60,10 @@ def _get_message_html(color: str, message: str) -> str:
 
 
 def _get_attachment() -> tuple:
-    with open(Path(PATH_TO_APP_DOCKER) / "scan.txt") as file:
+    with open(Path(PATH_TO_APP_DOCKER) / "scan_output.txt") as file:
         file_data = file.read()
-        file_name = file.name
-        unix_time = os.path.getmtime(Path(PATH_TO_APP_DOCKER) / "scan.txt")
+        file_name = file.name.split("/")[-1]
+        unix_time = os.path.getmtime(Path(PATH_TO_APP_DOCKER) / "scan_output.txt")
         file_datetime = datetime.datetime.utcfromtimestamp(unix_time).strftime(
             "%Y-%m-%d %H:%M:%S"
         )
